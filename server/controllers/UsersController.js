@@ -8,7 +8,7 @@ class UsersController {
 
   async getUserById(req, res) {
     let data = [req.params.id];
-    let sql = "SELECT * FROM users WHERE userID = ?";
+    let sql = "SELECT * FROM users WHERE userId = ?";
     res.json(await Query(sql, data));
   }
 
@@ -34,7 +34,7 @@ class UsersController {
       // TODO: сделать проверку капчи
       // TODO: сделать верификацию почты
       // TODO: добавить JWT
-      let data = [Date.now(), req.body.name, req.body.email, req.body.password];
+      let data = [toString(Date.now()), req.body.name, req.body.email, req.body.password];
 
       if (req.body.password != req.body.passwordAgain) {
         res.json("Введённые пароли не совпадают");
@@ -49,7 +49,7 @@ class UsersController {
         /* тут будет функция валидации email и name */
 
         let insertQuery =
-          "INSERT INTO users (userID, name, email, password) VALUES (?, ?, ?, ?)";
+          "INSERT INTO users (userId, name, email, password) VALUES (?, ?, ?, ?)";
         await Query(insertQuery, data);
         res.redirect(`/api/users/${data[0]}`);
       } else {

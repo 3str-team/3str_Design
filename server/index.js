@@ -10,7 +10,13 @@ app.listen(PORT, (err) => {
   err ? console.log(err) : console.log(`Server listening ${PORT}`);
 });
 
+// TODO: разделить API на роутеры
+
 app.get("/api/elems", ElemsController.getElems);
+app.get("/api/elems/getById/:id", ElemsController.getElemById);
+app.get("/api/elems/getByType/:type", ElemsController.getElemsByType);
+app.get("/api/elems/getByAuthor/:authorId", ElemsController.getElemsByAuthorId);
+app.get("/api/elems/getByAuthorAndType/:authorId/:type", ElemsController.getElemsByAuthorAndType);
 
 app.get("/api/users", UsersController.getUsers);
 app.get("/api/users/:id", UsersController.getUserById);
